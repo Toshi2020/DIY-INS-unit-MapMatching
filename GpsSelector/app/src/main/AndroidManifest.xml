@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.toshi.gpsselector">
+
+	<uses-feature android:name="android.hardware.usb.host" />
+
+	<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+	<uses-permission android:name=
+		"android.permission.ACCESS_COARSE_LOCATION" />
+	<uses-permission android:name="android.permission.ACCESS_MOCK_LOCATION"
+        tools:ignore="MockLocation" />
+	<uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+    <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
+    <uses-permission
+        android:name="android.permission.BLUETOOTH"
+        android:maxSdkVersion="30" />
+
+    <uses-permission android:name=
+    	"android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+	<!-- API 28 -->
+	<uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+
+    <!-- API 30 -->
+    <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE"/>
+
+    <!-- API 33 -->
+	<uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+	
+    <!-- OpenStreetMapで必要 -->
+	<uses-permission android:name="android.permission.INTERNET" />
+	<uses-permission android:name=
+				"android.permission.ACCESS_NETWORK_STATE"  />
+
+	<application
+		android:allowBackup="true"
+        android:requestLegacyExternalStorage="true"
+		android:icon="@mipmap/ic_launcher"
+		android:label="@string/app_name"
+		android:roundIcon="@mipmap/ic_launcher_round"
+		android:supportsRtl="true"
+		android:theme="@style/Theme.GpsSelector">
+
+		<!-- サービスを起動するアクティビティ -->
+		<activity
+			android:name=".StartServiceActivity"
+            android:exported="true">
+			<!--android:theme="@android:style/Theme.Translucent.NoTitleBar">-->
+			<intent-filter>
+			<action android:name="android.intent.action.VIEW" />
+				<category android:name="android.intent.category.DEFAULT" />
+			</intent-filter>
+		</activity>
+
+		<!-- 通信サービス -->
+		<service
+			android:name=".MyService"
+			android:enabled="true"
+			android:exported="false"
+			android:foregroundServiceType= "location|mediaProjection|connectedDevice|dataSync">
+		</service>
+
+		<activity
+			android:name=".MainActivity"
+            android:exported="true"
+            android:launchMode="singleTask">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+
+				<category android:name="android.intent.category.LAUNCHER" />
+
+				<action android:name=
+					"android.hardware.usb.action.USB_DEVICE_ATTACHED" />
+			</intent-filter>
+
+			<meta-data
+				android:name="android.hardware.usb.action.USB_DEVICE_ATTACHED"
+				android:resource="@xml/device_filter" />
+		</activity>
+	</application>
+
+</manifest>

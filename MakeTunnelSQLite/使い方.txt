@@ -1,0 +1,16 @@
+①Node.jsをインストールしておく
+②適当なフォルダを作成し(日本語は含まないこと)、*.jsファイルをコピーしておく
+③コマンドプロンプトでそこにcdして必要ライブラリをインストール
+npm init -y
+npm install node-fetch
+npm install better-sqlite3
+
+④Overpassからトンネル部分の道路データのjsonをダウンロード
+node download_tunnels.js
+→これでtunnels.jsonが作成される
+
+⑤jsonからSQLite用のファイルにコンバート
+node convert_tunnels_json_to_sqlite.js
+→これでtunnels.sqliteが作成される
+
+⑥出来上がったtunnels.sqliteをAndroidのDocumentsフォルダーにコピー
