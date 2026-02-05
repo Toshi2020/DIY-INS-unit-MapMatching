@@ -10,7 +10,8 @@ https://github.com/Toshi2020/Low-cost-INS-unit-development-project
 
 **システム構成**  
 ・INSユニットで得られた位置や速度の情報をシリアルでAndroidヘッドユニットに送り、Android側のアプリで仮の位置情報としてOS側に送っています。  
-[システム構成]
+![システム構成](https://github.com/user-attachments/assets/58dacb53-66db-42f0-b8a5-4b83ccc1c7f3)
+
 ・今回の改修は、Android側アプリでINSユニットから取得した位置情報を道路にスナップして、差分をINSユニットへ送り返すことでINSユニット側で位置の補正を行う構成としています。  
 ・マップマッチングを行うのはトンネル道路部分だけです。  
 ・トンネル部分の道路データーは、Overpass APIを使って通信によりリアルタイムで取得するか、あらかじめPCで日本の全トンネルデータを抽出したデーターベースファイルを作成してAndroid側に置き、アプリ起動時に読み込むようにしました。  
@@ -19,14 +20,16 @@ https://github.com/Toshi2020/Low-cost-INS-unit-development-project
   
 **効果**  
 ・前回実走時にナビの経路誘導が外れてしまった時の、山手トンネルから大橋ジャンクションへのログデータでHILSシミュレーションした結果です。  
-[効果(大橋ジャンクション)]  
+![効果(大橋ジャンクション)](https://github.com/user-attachments/assets/71b9ff0e-00fd-4e78-aa34-f3c29f97ed13)
+
 ・長い地下トンネルを南下し、その後トンネル内を西に分岐して地下のジャンクションをグルグルと2周するルートです。右下にジャンクション部分を拡大しています。  
 ・シミュレーション動画はこちら  
 https://youtu.be/dg56o25rdEs  
 
 
 **回路**  
-[自律航法ユニット_4X1.1回路図]  
+![自律航法ユニット_4X1 1回路図](https://github.com/user-attachments/assets/637f97a1-b029-4622-b1c4-3d53e81e3f74)
+
 ・INSユニット側の前回との違いは、Android側からのシリアル受信を可能とした部分です。Arduinoの持っているUSBシリアルと、外付けのBluetoothシリアルのどちらか一方のみを使う前提です。Arduinoの持っているUSBシリアルチップとATMEGAの間は1kΩの抵抗が入っているので、BluetoothシリアルのTxDとArduinoNANOのRxD端子を負論理のダイオードORで接続しています。Bluetoothシリアルユニットは3.3V仕様なのでレベルコンバーターを通しています。Arduinoからの送信側は抵抗分圧して電圧を下げています。  
   
 **ソフトウェア**  
@@ -39,7 +42,8 @@ https://youtu.be/dg56o25rdEs
 ・Android Studio(ラッコのバージョン)でビルドしています。(前作はキリンのバージョンでビルドしていました。)  
 ・build/debugフォルダに署名付きでビルドしたapkも入れておきました。  
 ・Android 13(SDK33)まで対応しています。  
-[アプリ説明]
+![アプリ説明](https://github.com/user-attachments/assets/f0de88c0-9b52-4e4a-8e8a-2f13db25ec03)
+
   
 ●MakeTunnelSQLite  
 ・WindowsPCで日本全国の道路情報のデータベースファイルを事前に作成するためのJavaスクリプトです。あらかじめPCにNode.jsをインストールしておく必要があります。  
@@ -50,7 +54,8 @@ https://youtu.be/dg56o25rdEs
 
 **シミュレーション手法**  
 ・ソフトを変更するたびに実走するのは時間の無駄です。実走時に取得したログデータにはGPS以外にもセンサデータが含まれているので、これを使って机上でアルゴリズムの検証ができるようになっています。  
-[シミュレーション時システム構成]  
+![シミュレーション時システム構成](https://github.com/user-attachments/assets/147d82de-78ee-4795-b8e8-cbfc4c0277ab)
+
 ・INSユニットのハードウェアを使ったシミュレーション時は、GPSユニットの接続を外して代わりにPCからのUSBシリアルコンバータのTxとRxとGNDを接続します。INSユニット側はExtGPS.inoで#define _HILSを1にしてビルドして焼いておきます。  
 ・EXCEL側では[Load]ボタンでログファイルLogxxx.txtを読み込んで、[Run Sim]ボタンでEXCEL上でシミュレーションを、[TxHILS]ボタンでINSユニットに実インターバルでシリアル送信します。この場合INSユニットから位置情報等が送信されるので、Android端末でアプリを起動しておきます。この時Android端末はUSBシリアルよりもBluetoothで接続した方が使い勝手がいいと思います。  
   
