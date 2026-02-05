@@ -10,6 +10,7 @@ https://github.com/Toshi2020/Low-cost-INS-unit-development-project
 
 **システム構成**  
 ・INSユニットで得られた位置や速度の情報をシリアルでAndroidヘッドユニットに送り、Android側のアプリで仮の位置情報としてOS側に送っています。  
+  
 ![システム構成](https://github.com/user-attachments/assets/58dacb53-66db-42f0-b8a5-4b83ccc1c7f3)
 
 ・今回の改修は、Android側アプリでINSユニットから取得した位置情報を道路にスナップして、差分をINSユニットへ送り返すことでINSユニット側で位置の補正を行う構成としています。  
