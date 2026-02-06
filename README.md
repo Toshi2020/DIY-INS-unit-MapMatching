@@ -47,7 +47,7 @@ https://youtu.be/dg56o25rdEs
 
   
 ●MakeTunnelSQLite  
-・WindowsPCで日本全国の道路情報のデータベースファイルを事前に作成するためのJavaスクリプトです。あらかじめPCにNode.jsをインストールしておく必要があります。  
+・WindowsPCで日本全国のトンネル道路情報のデータベースファイルを事前に作成するためのJavaスクリプトです。あらかじめPCにNode.jsをインストールしておく必要があります。  
 ・出来上がったtunnels.sqliteをAndroidのDocumentsフォルダに入れておくと、道路データを通信ではなくこのファイルから取得するようになります。  
   
 ●Sim_ExtGPS.xls  
